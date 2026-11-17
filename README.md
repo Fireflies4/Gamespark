@@ -2,7 +2,7 @@
 
 Een webapplicatie waarin Liam de Waal zijn games bijhoudt: welke games hij gespeeld en gereviewd heeft, welke op zijn wishlist staan en welke hij aangeraden heeft gekregen. Per game geeft hij een rating, zodat collega's die als inspiratie kunnen gebruiken.
 
-Dit is een duo-challenge voor de opleiding Software Developer (level 1).
+Dit is een duo-challenge voor de opleiding Software Developer.
 
 ## Functies
 
