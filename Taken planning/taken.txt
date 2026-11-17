@@ -1,0 +1,125 @@
+GameSpark - Takenoverzicht
+
+
+1. WAT MOET DE APP KUNNEN (user stories)
+----------------------------------------
+
+Must = moet, Should = liefst wel, Could = alleen als er tijd over is
+
+ID  | Wat                                   | Prioriteit | Sprint
+----+---------------------------------------+------------+-------
+A1  | Game opslaan                          | Must       | 1
+A2  | Status kiezen                         | Must       | 1
+A3  | Geen dubbele games (naam + jaar)      | Must       | 1
+D1  | Rating geven (1 t/m 5)                | Must       | 1
+F1  | Plaatje (thumbnail) tonen             | Must       | 1
+F2  | Detailpagina van een game             | Could *    | 1
+B1  | Game bewerken                         | Must       | 2
+B2  | Game verwijderen (met "weet je zeker?")| Must      | 2
+C1  | Filteren                              | Must       | 2
+C2  | Zoeken                                | Should     | 2
+C3  | Sorteren                              | Should     | 2
+D2  | Korte notitie (max 280 tekens)        | Should     | 2
+E1  | "Aangeraden door" invullen            | Should     | 2
+E2  | Snel iets op de wishlist zetten       | Should     | 2
+A4  | Meerdere platforms per game           | Could      | extra
+G1  | Downloaden als Excel-bestand (CSV)    | Could      | extra
+
+* De detailpagina is een Could, maar de opdracht zegt dat hij moet.
+  Daarom maken we hem toch in sprint 1.
+
+
+2. PAGINA'S DIE WE MAKEN
+------------------------
+
+Pagina              | Wat staat erop
+--------------------+------------------------------------------------
+Overzicht           | Lijst met alle games + filters, zoeken, sorteren
+                    | Knoppen: Bekijken / Bewerken / Verwijderen
+Game toevoegen      | Formulier met alle velden + Opslaan / Annuleren
+Game bekijken       | Alle info van 1 game + knop terug
+Game bewerken       | Zelfde formulier, maar al ingevuld
+Verwijderen         | "Weet je zeker dat je [naam + jaar] wilt verwijderen?"
+Snel toevoegen      | Alleen naam, platform en jaar (status = Wishlist)
+
+
+3. DATABASE (tabel: games)
+--------------------------
+
+Kolom            | Verplicht? | Uitleg
+-----------------+------------+---------------------------------------
+id               | ja         | nummer, gaat vanzelf omhoog
+naam             | ja         | naam van de game
+afbeelding_url   | nee        | link naar het plaatje
+platform         | ja         | PC, PlayStation, Xbox, Switch
+genre            | nee        | Action, RPG, Strategy, ...
+releasejaar      | ja         | jaar dat de game uitkwam
+status           | ja         | Wishlist / In bezit / Speelt nu / Uitgespeeld
+rating           | nee        | cijfer van 1 t/m 5
+notitie          | nee        | max 280 tekens
+aangeraden_door  | nee        | naam van wie de tip gaf
+
+Regel: naam + releasejaar mag maar 1 keer voorkomen.
+
+
+4. TAKEN SPRINT 1 (week 1 t/m 3)
+--------------------------------
+
+[x] = klaar, [ ] = nog doen
+
+Nr | Taak                                                  | Wie | Klaar
+---+-------------------------------------------------------+-----+------
+1  | Kanban-bord maken                                     |     | [ ]
+2  | GitHub repo maken en allebei downloaden               |     | [x]
+3  | Vragen stellen aan Liam                               |     | [ ]
+4  | Wireframes tekenen                                    |     | [ ]
+5  | Database en tabel maken                               |     | [ ]
+6  | Database koppelen aan de site (PDO)                   |     | [ ]
+7  | Overzichtspagina maken                                |     | [ ]
+8  | Plaatjes tonen (en een icoon als het plaatje stuk is) |     | [ ]
+9  | Detailpagina maken                                    |     | [ ]
+10 | Formulier "game toevoegen" maken                      |     | [ ]
+11 | Status kiezen met een dropdown                        |     | [ ]
+12 | Rating 1 t/m 5 kunnen invullen                        |     | [ ]
+13 | Foutmelding als verplichte velden leeg zijn           |     | [ ]
+14 | Foutmelding als de game al bestaat                    |     | [ ]
+15 | Veilig opslaan (prepared statements)                  |     | [ ]
+16 | Veilig tonen (htmlspecialchars)                       |     | [ ]
+17 | Beveiliging op formulier (CSRF-token)                 |     | [ ]
+18 | Terugkijken op de sprint (retrospective)              |     | [ ]
+
+
+5. TAKEN SPRINT 2 (week 4 t/m 6)
+--------------------------------
+
+Nr | Taak                                                  | Wie | Klaar
+---+-------------------------------------------------------+-----+------
+1  | Bewerkpagina maken                                    |     | [ ]
+2  | Zelfde foutmeldingen bij bewerken                     |     | [ ]
+3  | Verwijderknop met "weet je het zeker?"                |     | [ ]
+4  | Veilig verwijderen (via formulier + CSRF-token)       |     | [ ]
+5  | Filteren op platform, genre, status en rating         |     | [ ]
+6  | Zoeken op naam en jaar                                |     | [ ]
+7  | Sorteren op naam, jaar en rating                      |     | [ ]
+8  | Notitieveld (max 280 tekens)                          |     | [ ]
+9  | Veld "Aangeraden door"                                |     | [ ]
+10 | Snel toevoegen aan wishlist                           |     | [ ]
+11 | Acceptatietest schrijven                              |     | [ ]
+12 | Liam de test laten invullen                           |     | [ ]
+13 | Fouten uit de test oplossen                           |     | [ ]
+14 | Terugkijken op de sprint (retrospective)              |     | [ ]
+
+Extra als er tijd is: meerdere platforms, downloaden als CSV,
+wachtwoord, werkt goed op mobiel.
+
+
+6. LET OP: DE DOCUMENTEN ZEGGEN NIET OVERAL HETZELFDE
+-----------------------------------------------------
+
+- Rating: user stories zeggen 1 t/m 5, de wireframe zegt 1-10.
+  -> Wij kiezen 1 t/m 5.
+- Verplichte velden: user stories zeggen naam, platform, jaar, status.
+  De wireframe zegt alles verplicht.
+  -> Wij volgen de user stories.
+
+Even navragen bij Liam!

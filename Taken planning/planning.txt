@@ -1,5 +1,4 @@
 Planning Gamespark:
-
 WEEK 1 - Inlezen en plannen
   Lessen: CRUD (master/detail + update), interview, security fundamenten, GIT
   Di: challenge en user stories lezen, kanban-bord maken (product backlog, sprint backlog, to do, review, done)
