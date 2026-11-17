@@ -13,7 +13,7 @@ A2  | Status kiezen                         | Must       | 1
 A3  | Geen dubbele games (naam + jaar)      | Must       | 1
 D1  | Rating geven (1 t/m 5)                | Must       | 1
 F1  | Plaatje (thumbnail) tonen             | Must       | 1
-F2  | Detailpagina van een game             | Could *    | 1
+F2  | Detailpagina van een game             | Could * (moet)   | 1
 B1  | Game bewerken                         | Must       | 2
 B2  | Game verwijderen (met "weet je zeker?")| Must      | 2
 C1  | Filteren                              | Must       | 2
@@ -24,9 +24,6 @@ E1  | "Aangeraden door" invullen            | Should     | 2
 E2  | Snel iets op de wishlist zetten       | Should     | 2
 A4  | Meerdere platforms per game           | Could      | extra
 G1  | Downloaden als Excel-bestand (CSV)    | Could      | extra
-
-* De detailpagina is een Could, maar de opdracht zegt dat hij moet.
-  Daarom maken we hem toch in sprint 1.
 
 
 2. PAGINA'S DIE WE MAKEN
@@ -73,7 +70,7 @@ Nr | Taak                                                  | Wie | Klaar
 2  | GitHub repo maken en allebei downloaden               | Sam | [x]
 3  | Vragen stellen aan Liam                               | Sem | [ ]
 4  | Wireframes tekenen                                    | Sam | [ ]
-5  | Database en tabel maken                               | Sem | [ ]
+5  | Database en tabel maken                               | Sem | [x]
 6  | Database koppelen aan de site (PDO)                   | Sem | [ ]
 7  | Overzichtspagina maken                                | Sam | [ ]
 8  | Plaatjes tonen (en een icoon als het plaatje stuk is) | Sam | [ ]
