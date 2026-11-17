@@ -69,24 +69,24 @@ Regel: naam + releasejaar mag maar 1 keer voorkomen.
 
 Nr | Taak                                                  | Wie | Klaar
 ---+-------------------------------------------------------+-----+------
-1  | Kanban-bord maken                                     |     | [ ]
-2  | GitHub repo maken en allebei downloaden               |     | [x]
-3  | Vragen stellen aan Liam                               |     | [ ]
-4  | Wireframes tekenen                                    |     | [ ]
-5  | Database en tabel maken                               |     | [ ]
-6  | Database koppelen aan de site (PDO)                   |     | [ ]
-7  | Overzichtspagina maken                                |     | [ ]
-8  | Plaatjes tonen (en een icoon als het plaatje stuk is) |     | [ ]
-9  | Detailpagina maken                                    |     | [ ]
-10 | Formulier "game toevoegen" maken                      |     | [ ]
-11 | Status kiezen met een dropdown                        |     | [ ]
-12 | Rating 1 t/m 5 kunnen invullen                        |     | [ ]
-13 | Foutmelding als verplichte velden leeg zijn           |     | [ ]
-14 | Foutmelding als de game al bestaat                    |     | [ ]
-15 | Veilig opslaan (prepared statements)                  |     | [ ]
-16 | Veilig tonen (htmlspecialchars)                       |     | [ ]
-17 | Beveiliging op formulier (CSRF-token)                 |     | [ ]
-18 | Terugkijken op de sprint (retrospective)              |     | [ ]
+1  | Kanban-bord maken                                     | Sem en Sam | [ ]
+2  | GitHub repo maken en allebei downloaden               | Sam | [x]
+3  | Vragen stellen aan Liam                               | Sem | [ ]
+4  | Wireframes tekenen                                    | Sam | [ ]
+5  | Database en tabel maken                               | Sem | [ ]
+6  | Database koppelen aan de site (PDO)                   | Sem | [ ]
+7  | Overzichtspagina maken                                | Sam | [ ]
+8  | Plaatjes tonen (en een icoon als het plaatje stuk is) | Sam | [ ]
+9  | Detailpagina maken                                    | Sam en Sem | [ ]
+10 | Formulier "game toevoegen" maken                      | Sem | [ ]
+11 | Status kiezen met een dropdown                        | Sam | [ ]
+12 | Rating 1 t/m 5 kunnen invullen                        | Sem | [ ]
+13 | Foutmelding als verplichte velden leeg zijn           | Sam | [ ]
+14 | Foutmelding als de game al bestaat                    | Sam | [ ]
+15 | Veilig opslaan (prepared statements)                  | Sem | [ ]
+16 | Veilig tonen (htmlspecialchars)                       | Sem | [ ]
+17 | Beveiliging op formulier (CSRF-token)                 | Sem | [ ]
+18 | Terugkijken op de sprint (retrospective)              | Sam en Sem | [ ]
 
 
 5. TAKEN SPRINT 2 (week 4 t/m 6)
@@ -108,18 +108,3 @@ Nr | Taak                                                  | Wie | Klaar
 12 | Liam de test laten invullen                           |     | [ ]
 13 | Fouten uit de test oplossen                           |     | [ ]
 14 | Terugkijken op de sprint (retrospective)              |     | [ ]
-
-Extra als er tijd is: meerdere platforms, downloaden als CSV,
-wachtwoord, werkt goed op mobiel.
-
-
-6. LET OP: DE DOCUMENTEN ZEGGEN NIET OVERAL HETZELFDE
------------------------------------------------------
-
-- Rating: user stories zeggen 1 t/m 5, de wireframe zegt 1-10.
-  -> Wij kiezen 1 t/m 5.
-- Verplichte velden: user stories zeggen naam, platform, jaar, status.
-  De wireframe zegt alles verplicht.
-  -> Wij volgen de user stories.
-
-Even navragen bij Liam!
