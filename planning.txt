@@ -1,0 +1,66 @@
+Planning Gamespark:
+===================
+
+WEEK 1 - Inlezen en plannen
+  Lessen: CRUD (master/detail + update), interview, security fundamenten, GIT
+  Ma: challenge en user stories lezen
+  Di: kanban-bord maken (product backlog, sprint backlog, to do, review, done)
+  Wo: GitHub repo maken, allebei clonen, push/pull testen
+  Do: database ontwerpen (tabel games)
+  Vr: sprint 1 plannen op het bord
+
+WEEK 2 - Overzicht (READ)
+  Lessen: CRUD (delete), user stories, XSS + validatie, UI design
+  Ma: database + verbinding (PDO) maken
+  Di: overzichtspagina (naam, afbeelding, platform, status, rating)
+  Wo: detailpagina van een game
+  Do: output escapen tegen XSS, styling
+  Vr: testen, pull request, bord bijwerken
+
+WEEK 3 - Nieuwe game (CREATE)
+  Lessen: data presenteren, wireframes, CSRF, UX design
+  Ma: wireframes maken
+  Di: formulier nieuwe game maken
+  Wo: opslaan met prepared statement + afbeelding uploaden/URL
+  Do: validatie, foutmeldingen, dubbele game (naam + jaar) blokkeren
+  Vr: testen + sprint retrospective
+
+WEEK 4 - Evaluatieweek 1
+  Lessen: attractiepagina, presenteren, SQL injectie
+  Ma: sprint 1 evalueren
+  Di: code checken op SQL injectie
+  Wo: bugs oplossen
+  Do: sprint 2 plannen
+  Vr: bewijsmateriaal verzamelen
+
+WEEK 5 - Game wijzigen (UPDATE)
+  Lessen: JS variabelen, sessions, agile werken, AI
+  Ma: bewerk-pagina met ingevuld formulier
+  Di: wijzigingen opslaan (prepared statement)
+  Wo: afbeelding kunnen vervangen
+  Do: validatie + dubbele check
+  Vr: testen, pull request, bord bijwerken
+
+WEEK 6 - Game verwijderen (DELETE) + acceptatietest maken
+  Lessen: JS condities/lussen, inloggen, kanban, technische oplevering
+  Ma: verwijderknop + bevestiging
+  Di: verwijderen via POST met CSRF-token
+  Wo: (optioneel) wachtwoordcontrole
+  Do: acceptatietest schrijven
+  Vr: alles testen, pull request
+
+WEEK 7 - Acceptatietest uitvoeren
+  Lessen: JS functies, pagina's beveiligen, agile oefenen, peer review
+  Ma: acceptatietest laten invullen door de klant
+  Di: fouten op het bord zetten
+  Wo: fouten oplossen
+  Do: (optioneel) filteren / sorteren / responsive
+  Vr: peer review + sprint retrospective
+
+WEEK 8 - Evaluatieweek 2 / Oplevering
+  Lessen: JS DOM, registreren + hashing, sprint review
+  Ma: laatste fixes
+  Di: sprint review
+  Wo: demovideo opnemen
+  Do: technisch interview voorbereiden
+  Vr: inleveren
