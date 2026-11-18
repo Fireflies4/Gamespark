@@ -48,7 +48,7 @@ Dit is een duo-challenge voor de opleiding Software Developer.
    git clone <repo-url> Gamespark
    ```
 2. Maak een database aan en importeer het SQL-bestand.
-3. Vul de databasegegevens in het configuratiebestand in.
+3. Kopieer `config/config.example.php` naar `config/config.php` en vul je eigen databasegegevens in (dit bestand staat in `.gitignore`).
 4. Open `http://gamespark.test` in je browser.
 
 ## Samenwerken

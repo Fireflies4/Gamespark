@@ -3,3 +3,166 @@
     padding: 0;
 }
 
+/* ---- Basis ---- */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #d9d9d9;
+    color: #1e1e1e;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.wrap {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+main {
+    flex: 1;
+    padding: 28px 0 48px;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+a {
+    color: inherit;
+}
+
+/* ---- Header en footer ---- */
+.site-header,
+.site-footer {
+    background: #757575;
+    color: #ffffff;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 62px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.logo {
+    display: block;
+    width: 37px;
+    height: 38px;
+    background: #d9d9d9;
+}
+
+.site-header nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.site-header nav a {
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.site-header nav a.active {
+    background: #5c5c5c;
+}
+
+.site-header nav a.account {
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    margin-left: 6px;
+    border-radius: 50%;
+    background: #d9d9d9;
+}
+
+.footer-inner {
+    display: flex;
+    align-items: center;
+    min-height: 64px;
+    font-size: 12px;
+}
+
+/* ---- Knoppen ---- */
+.btn {
+    display: inline-block;
+    padding: 10px 16px;
+    border: 1px solid #757575;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #1e1e1e;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #f0f0f0;
+}
+
+.btn-primary {
+    background: #2b2b2b;
+    border-color: #2b2b2b;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: #444444;
+}
+
+.btn-small {
+    padding: 4px 8px;
+    font-size: 11px;
+}
+
+/* ---- Overzicht ---- */
+.title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+table.games {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border: 1px solid #bdbdbd;
+}
+
+.games th {
+    padding: 10px 14px;
+    background: #757575;
+    color: #ffffff;
+    text-align: left;
+}
+
+.games td {
+    padding: 12px 14px;
+    border-top: 1px solid #e3e3e3;
+    vertical-align: middle;
+}
+
+.thumb {
+    display: block;
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    background: #d9d9d9;
+    border: 1px solid #757575;
+}
+
+.leeg {
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #bdbdbd;
+}
