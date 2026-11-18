@@ -13,7 +13,7 @@ require __DIR__ . '/includes/header.php';
 
 <div class="title-row">
     <h1>Games</h1>
-    <a class="btn btn-primary" href="game-toevoegen.php">+ Game toevoegen</a>
+    <a class="btn btn-primary" href="formulier.php">+ Game toevoegen</a>
 </div>
 
 <?php if (count($games) === 0): ?>
