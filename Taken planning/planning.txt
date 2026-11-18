@@ -4,7 +4,7 @@ WEEK 1 - Inlezen en plannen
   Di: challenge en user stories lezen, kanban-bord maken (product backlog, sprint backlog, to do, review, done)
   Wo: GitHub repo maken, allebei clonen, push/pull testen (af)
   Do: database ontwerpen (tabel games)
-  Vr: sprint 1 plannen op het bord
+  Vr: sprint 1 plannen op het bord (af)
 
 WEEK 2 - Overzicht (READ)
   Lessen: CRUD (delete), user stories, XSS + validatie, UI design
