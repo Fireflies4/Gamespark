@@ -10,7 +10,7 @@ function e($tekst) {
 $statussen  = ['Wishlist', 'In bezit', 'Speelt nu', 'Uitgespeeld'];
 $platformen = ['PC', 'PlayStation 5', 'PlayStation 4', 'Xbox Series X/S', 'Xbox One', 'Nintendo Switch', 'Mobiel', 'Anders'];
 $toegestaan = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/gif' => 'gif'];
-$maxJaar    = date('Y') + 2;
+$maxJaar    = 2026;
 
 // CSRF-token aanmaken
 if (empty($_SESSION['csrf_token'])) {
@@ -46,8 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (strlen($genre) > 80) {
         $fouten[] = 'Het genre mag maximaal 80 tekens zijn.';
     }
-    if (!ctype_digit($jaar) || $jaar < 1970 || $jaar > $maxJaar) {
-        $fouten[] = "Vul een geldig jaar in (1970 t/m $maxJaar).";
+    if (!ctype_digit($jaar) || $jaar < 1970 || $jaar > 2026) {
+        $fouten[] = "Vul een geldig jaar in (1970 t/m 2026).";
     }
     if (!in_array($status, $statussen)) {
         $fouten[] = 'Kies een geldige status.';
