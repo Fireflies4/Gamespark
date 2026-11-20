@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS games (
     id INT AUTO_INCREMENT PRIMARY KEY,
     naam VARCHAR(100) NOT NULL,
     afbeelding_url VARCHAR(255),
-    platform VARCHAR(20) NOT NULL,
+    platform VARCHAR(150) NOT NULL,
     genre VARCHAR(40),
     releasejaar INT NOT NULL,
     status VARCHAR(20) NOT NULL,

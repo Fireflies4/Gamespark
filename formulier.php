@@ -8,7 +8,7 @@ function e($tekst) {
 }
 
 $statussen  = ['Wishlist', 'In bezit', 'Speelt nu', 'Uitgespeeld'];
-$platformen = ['PC', 'PlayStation 5', 'PlayStation 4', 'Xbox Series X/S', 'Xbox One', 'Nintendo Switch', 'Mobiel', 'Anders'];
+$platformen = ['PC', 'PlayStation 5', 'PlayStation 4', 'Xbox Series X/S', 'Xbox One', 'Nintendo Switch', 'Nintendo Switch 2', 'Mobiel', 'Anders'];
 $toegestaan = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/gif' => 'gif'];
 $maxJaar    = date('Y') + 2; // huidig jaar + 2, zodat aankomende games ook kunnen
 
@@ -19,6 +19,7 @@ if (empty($_SESSION['csrf_token'])) {
 
 $fouten = [];
 $naam = $platform = $genre = $jaar = $status = $rating = $url = $notities = '';
+$gekozen = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -28,7 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $naam     = trim($_POST['naam'] ?? '');
-    $platform = $_POST['platform'] ?? '';
+    $gekozen  = $_POST['platform'] ?? [];
+    if (!is_array($gekozen)) {
+        $gekozen = [];
+    }
     $genre    = trim($_POST['genre'] ?? '');
     $jaar     = trim($_POST['jaar'] ?? '');
     $status   = $_POST['status'] ?? '';
@@ -40,9 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($naam === '' || strlen($naam) > 100) {
         $fouten[] = 'Vul een naam in (maximaal 100 tekens).';
     }
-    if (!in_array($platform, $platformen)) {
-        $fouten[] = 'Kies een platform.';
+    if (!$gekozen || array_diff($gekozen, $platformen)) {
+        $fouten[] = 'Kies minstens één geldig platform.';
     }
+    $platform = implode(', ', $gekozen);
     if (strlen($genre) > 40) {
         $fouten[] = 'Het genre mag maximaal 40 tekens zijn.';
     }
@@ -139,14 +144,41 @@ require __DIR__ . '/includes/header.php';
     </div>
 
     <div class="veld">
-        <label for="platform">Platform *</label>
-        <select id="platform" name="platform">
-            <option value="">-- Kies een platform --</option>
-            <?php foreach ($platformen as $p): ?>
-                <option <?= $platform === $p ? 'selected' : '' ?>><?= e($p) ?></option>
-            <?php endforeach; ?>
-        </select>
+        <span class="veld-titel">Platforms *</span>
+        <details class="multiselect" id="platform-kiezer">
+            <summary>-- Kies platforms --</summary>
+            <div class="opties">
+                <?php foreach ($platformen as $p): ?>
+                    <label>
+                        <input type="checkbox" name="platform[]" value="<?= e($p) ?>"
+                            <?= in_array($p, $gekozen) ? 'checked' : '' ?>>
+                        <?= e($p) ?>
+                    </label>
+                <?php endforeach; ?>
+            </div>
+        </details>
     </div>
+
+    <script>
+    // Toont de gekozen platforms in de balk en sluit de lijst bij een klik erbuiten
+    (function () {
+        var kiezer = document.getElementById('platform-kiezer');
+        var titel = kiezer.querySelector('summary');
+        var vinkjes = kiezer.querySelectorAll('input[type="checkbox"]');
+
+        function bijwerken() {
+            var namen = [];
+            vinkjes.forEach(function (v) { if (v.checked) namen.push(v.value); });
+            titel.textContent = namen.length ? namen.join(', ') : '-- Kies platforms --';
+        }
+
+        vinkjes.forEach(function (v) { v.addEventListener('change', bijwerken); });
+        document.addEventListener('click', function (ev) {
+            if (!kiezer.contains(ev.target)) kiezer.removeAttribute('open');
+        });
+        bijwerken();
+    })();
+    </script>
 
     <div class="veld">
         <label for="genre">Genre</label>
