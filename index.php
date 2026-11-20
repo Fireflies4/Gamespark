@@ -41,7 +41,7 @@ require 'includes/header.php';
             <?php
             // Als er geen plaatje is, gebruiken we het placeholder-plaatje
             if ($game['afbeelding_url'] == '') {
-                $plaatje = 'img/placeholder.svg';
+                $plaatje = 'img/dummypicture.png';
             } else {
                 $plaatje = $game['afbeelding_url'];
             }

@@ -280,3 +280,101 @@ h2 {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* ---- Game bekijken ---- */
+.terug {
+    display: inline-block;
+    margin: 8px 0 44px;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.detail-titel {
+    margin-bottom: 44px;
+}
+
+.detail-titel .btn {
+    padding: 9px 14px;
+    font-size: 12px;
+}
+
+.detail {
+    display: flex;
+    gap: 28px;
+    padding: 28px;
+    background: #ffffff;
+    border: 1px solid #c8c8c8;
+    border-radius: 6px;
+}
+
+.detail-plaatje {
+    width: 230px;
+    height: 230px;
+    object-fit: cover;
+    background: #d9d9d9;
+}
+
+.detail-gegevens {
+    flex: 1;
+    border-collapse: collapse;
+}
+
+.detail-gegevens th,
+.detail-gegevens td {
+    padding: 14px 0;
+    border-bottom: 1px solid #e3e3e3;
+    text-align: left;
+}
+
+.detail-gegevens th {
+    width: 130px;
+    font-weight: normal;
+    font-size: 12px;
+    color: #5c5c5c;
+}
+
+.detail-gegevens tr:last-child th,
+.detail-gegevens tr:last-child td {
+    border-bottom: none;
+}
+
+.label {
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: #e3e3e3;
+    font-size: 12px;
+}
+
+/* Op een smal scherm het plaatje boven de gegevens */
+@media (max-width: 700px) {
+    .detail {
+        flex-direction: column;
+    }
+}
+
+/* ---- Footer met logo en links ---- */
+.footer-inner {
+    justify-content: space-between;
+}
+
+.footer-merk {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-logo {
+    display: block;
+    width: 22px;
+    height: 22px;
+    background: #d9d9d9;
+}
+
+.footer-links {
+    display: flex;
+    gap: 22px;
+}
+
+.footer-links a {
+    text-decoration: none;
+}

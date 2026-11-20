@@ -37,10 +37,10 @@ require __DIR__ . '/includes/header.php';
                     <td>
                         <?php
                         // Geen plaatje? Dan tonen we het placeholder-icoon
-                        $plaatje = $game['afbeelding_url'] ?: 'img/placeholder.svg';
+                        $plaatje = $game['afbeelding_url'] ?: 'img/dummypicture.png';
                         ?>
                         <img class="thumb" src="<?= htmlspecialchars($plaatje) ?>" alt="Afbeelding van <?= htmlspecialchars($game['naam']) ?>"
-                             onerror="this.onerror=null; this.src='img/placeholder.svg';">
+                             onerror="this.onerror=null; this.src='img/dummypicture.png';">
                     </td>
                     <td><?= htmlspecialchars($game['naam']) ?></td>
                     <td><?= htmlspecialchars($game['platform']) ?></td>
