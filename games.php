@@ -3,7 +3,7 @@
 require_once __DIR__ . '/db.php';
 
 // Alle games ophalen, alfabetisch op naam
-$stmt = $pdo->query('SELECT id, naam, afbeelding_url, platform, status, rating FROM games ORDER BY naam');
+$stmt = $pdo->query('SELECT id, naam, afbeelding_url, platform, status, rating, notitie FROM games ORDER BY naam');
 $games = $stmt->fetchAll();
 
 $paginaTitel = 'Games';
@@ -27,6 +27,7 @@ require __DIR__ . '/includes/header.php';
                 <th>Platform</th>
                 <th>Status</th>
                 <th>Rating</th>
+                <th>Korte notities</th>
                 <th>Acties</th>
             </tr>
         </thead>
@@ -45,6 +46,7 @@ require __DIR__ . '/includes/header.php';
                     <td><?= htmlspecialchars($game['platform']) ?></td>
                     <td><?= htmlspecialchars($game['status']) ?></td>
                     <td><?= $game['rating'] === null ? '-' : (int) $game['rating'] . '/5' ?></td>
+                    <td><?= htmlspecialchars($game['notitie'] ?? '') ?></td>
                     <td>
                         <a class="btn btn-small" href="game-bekijken.php?id=<?= (int) $game['id'] ?>">Bekijken</a>
                         <a class="btn btn-small" href="game-bewerken.php?id=<?= (int) $game['id'] ?>">Bewerken</a>
