@@ -10,7 +10,7 @@ function e($tekst) {
 $statussen  = ['Wishlist', 'In bezit', 'Speelt nu', 'Uitgespeeld'];
 $platformen = ['PC', 'PlayStation 5', 'PlayStation 4', 'Xbox Series X/S', 'Xbox One', 'Nintendo Switch', 'Mobiel', 'Anders'];
 $toegestaan = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/gif' => 'gif'];
-$maxJaar    = 2026;
+$maxJaar    = date('Y') + 2; // huidig jaar + 2, zodat aankomende games ook kunnen
 
 // CSRF-token aanmaken
 if (empty($_SESSION['csrf_token'])) {
@@ -37,23 +37,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $notities = trim($_POST['notities'] ?? '');
 
     // Validatie
-    if ($naam === '' || strlen($naam) > 150) {
-        $fouten[] = 'Vul een naam in (maximaal 150 tekens).';
+    if ($naam === '' || strlen($naam) > 100) {
+        $fouten[] = 'Vul een naam in (maximaal 100 tekens).';
     }
     if (!in_array($platform, $platformen)) {
         $fouten[] = 'Kies een platform.';
     }
-    if (strlen($genre) > 80) {
-        $fouten[] = 'Het genre mag maximaal 80 tekens zijn.';
+    if (strlen($genre) > 40) {
+        $fouten[] = 'Het genre mag maximaal 40 tekens zijn.';
     }
-    if (!ctype_digit($jaar) || $jaar < 1970 || $jaar > 2026) {
-        $fouten[] = "Vul een geldig jaar in (1970 t/m 2026).";
+    if (!ctype_digit($jaar) || $jaar < 1970 || $jaar > $maxJaar) {
+        $fouten[] = "Vul een geldig jaar in (1970 t/m $maxJaar).";
     }
     if (!in_array($status, $statussen)) {
         $fouten[] = 'Kies een geldige status.';
     }
     if ($rating !== '' && !in_array($rating, ['1', '2', '3', '4', '5'])) {
         $fouten[] = 'De rating moet tussen 1 en 5 liggen.';
+    }
+    if (strlen($notities) > 280) {
+        $fouten[] = 'De notities mogen maximaal 280 tekens zijn.';
+    }
+    if (strlen($url) > 255) {
+        $fouten[] = 'De link mag maximaal 255 tekens zijn.';
     }
 
     // Afbeelding: upload heeft voorrang op de link
@@ -71,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Dubbele game (zelfde naam en jaar)
     if (!$fouten) {
-        $stmt = $pdo->prepare('SELECT COUNT(*) FROM games WHERE naam = ? AND jaar = ?');
+        $stmt = $pdo->prepare('SELECT COUNT(*) FROM games WHERE naam = ? AND releasejaar = ?');
         $stmt->execute([$naam, $jaar]);
         if ($stmt->fetchColumn() > 0) {
             $fouten[] = 'Deze game (zelfde naam en jaar) staat al in de lijst.';
@@ -79,16 +85,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Opslaan
-    if (!$fouten) {
-        if ($upload && $upload['error'] === UPLOAD_ERR_OK) {
-            @mkdir(__DIR__ . '/img/uploads', 0755, true);
-            $bestand = 'img/uploads/' . bin2hex(random_bytes(16)) . '.' . $toegestaan[$mime];
-            move_uploaded_file($upload['tmp_name'], __DIR__ . '/' . $bestand);
-            $afbeelding = $bestand;
-        }
+    if (!$fouten && $upload && $upload['error'] === UPLOAD_ERR_OK) {
+        @mkdir(__DIR__ . '/img/uploads', 0755, true);
+        $bestand = 'img/uploads/' . bin2hex(random_bytes(16)) . '.' . $toegestaan[$mime];
 
+        // Alleen opslaan als het bestand echt verplaatst is
+        if (move_uploaded_file($upload['tmp_name'], __DIR__ . '/' . $bestand)) {
+            $afbeelding = $bestand;
+        } else {
+            $fouten[] = 'De afbeelding kon niet worden opgeslagen. Probeer het opnieuw.';
+        }
+    }
+
+    if (!$fouten) {
         $stmt = $pdo->prepare(
-            'INSERT INTO games (naam, afbeelding_url, platform, genre, jaar, status, rating, notities)
+            'INSERT INTO games (naam, afbeelding_url, platform, genre, releasejaar, status, rating, notitie)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
         );
         $stmt->execute([$naam, $afbeelding, $platform, $genre ?: null, $jaar, $status, $rating ?: null, $notities ?: null]);
