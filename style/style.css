@@ -230,3 +230,53 @@ table.games {
 @media (max-width: 560px) {
 .formulier { grid-template-columns: 1fr; }
     }
+/* ---- Homepage ---- */
+h2 {
+    font-size: 18px;
+    margin: 28px 0 12px;
+}
+
+.hero {
+    padding: 32px;
+    background: #ffffff;
+    border: 1px solid #bdbdbd;
+}
+
+.hero p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.kaarten {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.kaart {
+    background: #ffffff;
+    border: 1px solid #bdbdbd;
+}
+
+.kaart img {
+    display: block;
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    background: #d9d9d9;
+}
+
+.kaart-tekst {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 12px;
+    font-size: 12px;
+}
+
+/* Op een smal scherm 2 kaarten naast elkaar */
+@media (max-width: 700px) {
+    .kaarten {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

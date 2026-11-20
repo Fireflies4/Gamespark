@@ -14,6 +14,7 @@
         <div class="wrap header-inner">
             <a class="brand" href="index.php"><span class="logo"></span>GameSpark</a>
             <nav>
+                <a href="index.php"<?= $actief === 'home' ? ' class="active"' : '' ?>>Home</a>
                 <a href="games.php"<?= $actief === 'games' ? ' class="active"' : '' ?>>Games</a>
                 <a href="over-ons.php"<?= $actief === 'over-ons' ? ' class="active"' : '' ?>>Over ons</a>
                 <a class="account" href="account.php" aria-label="Account"></a>
