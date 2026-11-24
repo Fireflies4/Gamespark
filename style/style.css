@@ -1,3 +1,56 @@
+/* ---- Kleurenschema ---- */
+/* Donker (standaard). Zet class="licht" op <body> voor het lichte schema. */
+
+:root {
+    --achtergrond: #38302E;     /* achtergrond van de pagina (Deep Mocha) */
+    --vlak: #433B39;            /* header, kaarten, tabel en footer */
+    --invoer: #38302E;          /* invulvelden in formulieren */
+    --rand: #6F6866;            /* randen en lijnen (Dim Grey) */
+    --grijs: #9CAEA9;           /* kleine tekst en labels (Ash Grey) */
+    --tekst: #CCDAD1;           /* gewone tekst (Ash Grey licht) */
+    --foto-rand: #788585;       /* rand om foto's (Grey Olive) */
+
+    --accent: #E0A458;          /* amber "spark": hoofdknoppen, logo, actief menu */
+    --accent-hover: #EDBA7A;    /* accent als je eroverheen gaat */
+    --accent-tekst: #38302E;    /* tekst op het accent */
+
+    --groen-tekst: #C6DEBF;     /* tekst van succesmeldingen */
+    --groen-vlak: #2F4A3A;      /* achtergrond van succesmeldingen */
+    --rood-tekst: #F2C4BE;      /* tekst van foutmeldingen */
+    --rood-vlak: #4E2A27;       /* achtergrond van foutmeldingen */
+
+    --wishlist: #D8CCE3;        /* status: Wishlist (lavendel) */
+    --in-bezit: #C9D9E8;        /* status: In bezit (blauw) */
+    --speelt-nu: #C6DEBF;       /* status: Speelt nu (groen) */
+    --uitgespeeld: #EBD9A8;     /* status: Uitgespeeld (goud) */
+    --label-tekst: #38302E;     /* tekst op de status-labels */
+}
+
+.licht {
+    --achtergrond: #CCDAD1;
+    --vlak: #FFFFFF;
+    --invoer: #FFFFFF;
+    --rand: #9CAEA9;
+    --grijs: #6F6866;
+    --tekst: #38302E;
+    --foto-rand: #788585;
+
+    --accent: #E0A458;
+    --accent-hover: #D18F3D;
+    --accent-tekst: #38302E;
+
+    --groen-tekst: #2F5A2A;
+    --groen-vlak: #E3F0DF;
+    --rood-tekst: #8A2A1F;
+    --rood-vlak: #F8E1DE;
+
+    --wishlist: #D8CCE3;
+    --in-bezit: #C9D9E8;
+    --speelt-nu: #C6DEBF;
+    --uitgespeeld: #EBD9A8;
+    --label-tekst: #38302E;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -8,8 +61,8 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background: #d9d9d9;
-    color: #1e1e1e;
+    background: var(--achtergrond);
+    color: var(--tekst);
     font-family: Arial, sans-serif;
     font-size: 14px;
 }
@@ -36,8 +89,8 @@ a {
 /* ---- Header en footer ---- */
 .site-header,
 .site-footer {
-    background: #757575;
-    color: #ffffff;
+    background: var(--vlak);
+    color: var(--tekst);
 }
 
 .header-inner {
@@ -59,7 +112,7 @@ a {
     display: block;
     width: 37px;
     height: 38px;
-    background: #d9d9d9;
+    background: var(--accent);
 }
 
 .site-header nav {
@@ -75,7 +128,8 @@ a {
 }
 
 .site-header nav a.active {
-    background: #5c5c5c;
+    background: var(--accent);
+    color: var(--accent-tekst);
 }
 
 .site-header nav a.account {
@@ -84,7 +138,7 @@ a {
     padding: 0;
     margin-left: 6px;
     border-radius: 50%;
-    background: #d9d9d9;
+    background: var(--grijs);
 }
 
 .footer-inner {
@@ -98,25 +152,26 @@ a {
 .btn {
     display: inline-block;
     padding: 10px 16px;
-    border: 1px solid #757575;
+    border: 1px solid var(--rand);
     border-radius: 4px;
-    background: #ffffff;
-    color: #1e1e1e;
+    background: var(--vlak);
+    color: var(--tekst);
     text-decoration: none;
 }
 
 .btn:hover {
-    background: #f0f0f0;
+    border-color: var(--accent);
 }
 
 .btn-primary {
-    background: #2b2b2b;
-    border-color: #2b2b2b;
-    color: #ffffff;
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-tekst);
 }
 
 .btn-primary:hover {
-    background: #444444;
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
 }
 
 .btn-small {
@@ -135,20 +190,20 @@ a {
 table.games {
     width: 100%;
     border-collapse: collapse;
-    background: #ffffff;
-    border: 1px solid #bdbdbd;
+    background: var(--vlak);
+    border: 1px solid var(--rand);
 }
 
 .games th {
     padding: 10px 14px;
-    background: #757575;
-    color: #ffffff;
+    background: var(--achtergrond);
+    color: var(--tekst);
     text-align: left;
 }
 
 .games td {
     padding: 12px 14px;
-    border-top: 1px solid #e3e3e3;
+    border-top: 1px solid var(--rand);
     vertical-align: middle;
 }
 
@@ -157,22 +212,22 @@ table.games {
     width: 56px;
     height: 56px;
     object-fit: cover;
-    background: #d9d9d9;
-    border: 1px solid #757575;
+    background: var(--achtergrond);
+    border: 1px solid var(--foto-rand);
 }
 
 .leeg {
     padding: 24px;
-    background: #ffffff;
-    border: 1px solid #bdbdbd;
+    background: var(--vlak);
+    border: 1px solid var(--rand);
 }
 
 .formulier {
         max-width: 640px;
         margin: 1rem 0 2rem;
         padding: 1.5rem;
-        background: #fff;
-        border: 1px solid #ccc;
+        background: var(--vlak);
+        border: 1px solid var(--rand);
         border-radius: 8px;
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -201,9 +256,10 @@ table.games {
         box-sizing: border-box;
         padding: 0.5rem 0.6rem;
         font: inherit;
-        border: 1px solid #bbb;
+        border: 1px solid var(--rand);
         border-radius: 6px;
-        background: #fff;
+        background: var(--invoer);
+        color: var(--tekst);
     }
 .formulier textarea {
         resize: vertical;
@@ -227,9 +283,10 @@ table.games {
         width: 100%;
         padding: 0.5rem 2rem 0.5rem 0.6rem;
         font: inherit;
-        border: 1px solid #bbb;
+        border: 1px solid var(--rand);
         border-radius: 6px;
-        background: #fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1.5l5 5 5-5' fill='none' stroke='%23222' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat right 0.7rem center;
+        background: var(--invoer) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1.5l5 5 5-5' fill='none' stroke='%239CAEA9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat right 0.7rem center;
+        color: var(--tekst);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -242,8 +299,8 @@ table.games {
         z-index: 10;
         left: 0;
         right: 0;
-        background: #fff;
-        border: 1px solid #767676;
+        background: var(--vlak);
+        border: 1px solid var(--rand);
         padding: 0.2rem 0;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     }
@@ -263,18 +320,18 @@ table.games {
         cursor: pointer;
     }
 .formulier .multiselect .opties label:hover {
-        background: #1a66d6;
-        color: #fff;
+        background: var(--accent);
+        color: var(--accent-tekst);
     }
 .melding-fout {
         max-width: 640px;
         box-sizing: border-box;
         margin: 1rem 0;
         padding: 0.75rem 1rem;
-        background: #fdecea;
-        border: 1px solid #e0a4a0;
+        background: var(--rood-vlak);
+        border: 1px solid var(--rood-tekst);
         border-radius: 8px;
-        color: #8a1f17;
+        color: var(--rood-tekst);
     }
 .melding-fout ul {
         margin: 0;
@@ -291,8 +348,8 @@ h2 {
 
 .hero {
     padding: 32px;
-    background: #ffffff;
-    border: 1px solid #bdbdbd;
+    background: var(--vlak);
+    border: 1px solid var(--rand);
 }
 
 .hero p {
@@ -307,8 +364,8 @@ h2 {
 }
 
 .kaart {
-    background: #ffffff;
-    border: 1px solid #bdbdbd;
+    background: var(--vlak);
+    border: 1px solid var(--rand);
 }
 
 .kaart img {
@@ -316,7 +373,7 @@ h2 {
     width: 100%;
     height: 120px;
     object-fit: cover;
-    background: #d9d9d9;
+    background: var(--achtergrond);
 }
 
 .kaart-tekst {
@@ -355,8 +412,8 @@ h2 {
     display: flex;
     gap: 28px;
     padding: 28px;
-    background: #ffffff;
-    border: 1px solid #c8c8c8;
+    background: var(--vlak);
+    border: 1px solid var(--rand);
     border-radius: 6px;
 }
 
@@ -364,7 +421,8 @@ h2 {
     width: 230px;
     height: 230px;
     object-fit: cover;
-    background: #d9d9d9;
+    background: var(--achtergrond);
+    border: 1px solid var(--foto-rand);
 }
 
 .detail-gegevens {
@@ -375,7 +433,7 @@ h2 {
 .detail-gegevens th,
 .detail-gegevens td {
     padding: 14px 0;
-    border-bottom: 1px solid #e3e3e3;
+    border-bottom: 1px solid var(--rand);
     text-align: left;
 }
 
@@ -383,7 +441,7 @@ h2 {
     width: 130px;
     font-weight: normal;
     font-size: 12px;
-    color: #5c5c5c;
+    color: var(--grijs);
 }
 
 .detail-gegevens tr:last-child th,
@@ -394,7 +452,8 @@ h2 {
 .label {
     padding: 3px 10px;
     border-radius: 12px;
-    background: #e3e3e3;
+    background: var(--rand);
+    color: var(--tekst);
     font-size: 12px;
 }
 
@@ -420,7 +479,7 @@ h2 {
     display: block;
     width: 22px;
     height: 22px;
-    background: #d9d9d9;
+    background: var(--accent);
 }
 
 .footer-links {
@@ -435,8 +494,8 @@ h2 {
 /* ---- Platforms als gewone lijst met vinkjes (game bewerken) ---- */
 .platform-lijst {
     padding: 8px 10px;
-    background: #ffffff;
-    border: 1px solid #bbbbbb;
+    background: var(--invoer);
+    border: 1px solid var(--rand);
     border-radius: 6px;
 }
 
@@ -450,8 +509,29 @@ h2 {
 .msg {
     margin-bottom: 20px;
     padding: 12px 16px;
-    background: #e6f4ea;
-    border: 1px solid #9fd3ad;
+    background: var(--groen-vlak);
+    border: 1px solid var(--groen-tekst);
     border-radius: 6px;
-    color: #1e5e2f;
+    color: var(--groen-tekst);
+}
+
+/* ---- Kleur per status ---- */
+.label-wishlist {
+    background: var(--wishlist);
+    color: var(--label-tekst);
+}
+
+.label-in-bezit {
+    background: var(--in-bezit);
+    color: var(--label-tekst);
+}
+
+.label-speelt-nu {
+    background: var(--speelt-nu);
+    color: var(--label-tekst);
+}
+
+.label-uitgespeeld {
+    background: var(--uitgespeeld);
+    color: var(--label-tekst);
 }
