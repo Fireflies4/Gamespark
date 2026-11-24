@@ -12,7 +12,7 @@
 <body>
     <header class="site-header">
         <div class="wrap header-inner">
-            <a class="brand" href="index.php"><span class="logo"></span>GameSpark</a>
+            <a class="brand" href="index.php"><img class="logo" src="img/gamesparklogo.png" alt="GameSpark logo">GameSpark</a>
             <nav>
                 <a href="index.php"<?= $actief === 'home' ? ' class="active"' : '' ?>>Home</a>
                 <a href="games.php"<?= $actief === 'games' ? ' class="active"' : '' ?>>Games</a>

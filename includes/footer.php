@@ -2,7 +2,7 @@
     <footer class="site-footer">
         <div class="wrap footer-inner">
             <div class="footer-merk">
-                <span class="footer-logo"></span>
+                <img class="footer-logo" src="img/gamesparklogo.png" alt="GameSpark logo">
                 <span>&copy; <?php echo date('Y'); ?> GameSpark</span>
             </div>
             <nav class="footer-links">
