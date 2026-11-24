@@ -1,16 +1,25 @@
 <?php
 // Detailpagina: alle gegevens van één game bekijken
 
-// Verbinding met de database
-require_once 'db.php';
-
 // Het id van de game komt uit de link, bijvoorbeeld: game-bekijken.php?id=3
 $id = $_GET['id'] ?? '';
 
-// Zoek de game met dit id (prepared statement, want het id komt van de gebruiker)
-$stmt = $pdo->prepare('SELECT * FROM games WHERE id = ?');
-$stmt->execute([$id]);
-$game = $stmt->fetch();
+//1. Verbinding
+require_once 'config/conn.php';
+
+//2. Query
+$query = "SELECT * FROM games WHERE id = :id";
+
+//3. Prepare
+$statement = $pdo->prepare($query);
+
+//4. Execute
+$statement->execute([
+    ":id" => $id
+]);
+
+//5. Fetch (één game)
+$game = $statement->fetch();
 
 // Gegevens voor de header
 if ($game) {
@@ -23,6 +32,10 @@ require 'includes/header.php';
 ?>
 
 <a class="terug" href="games.php">&larr; Terug naar games</a>
+
+<?php if (isset($_GET['msg'])) {
+    echo "<div class='msg'>" . htmlspecialchars($_GET['msg']) . "</div>";
+} ?>
 
 <?php if (!$game) { ?>
 
