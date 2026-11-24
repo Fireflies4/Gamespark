@@ -40,6 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $url      = trim($_POST['afbeelding_url'] ?? '');
     $notities = trim($_POST['notities'] ?? '');
 
+    // Alleen naam, platform, genre en jaar ingevuld? Dan wordt de status automatisch Wishlist
+    $geenUpload = !isset($_FILES['afbeelding']) || $_FILES['afbeelding']['error'] === UPLOAD_ERR_NO_FILE;
+    if ($status === '' && $genre !== '' && $rating === '' && $url === '' && $notities === '' && $geenUpload) {
+        $status = 'Wishlist';
+    }
+
     // Validatie
     if ($naam === '' || strlen($naam) > 100) {
         $fouten[] = 'Vul een naam in (maximaal 100 tekens).';

@@ -8,18 +8,18 @@ WEEK 1 - Inlezen en plannen
 
 WEEK 2 - Overzicht (READ)
   Lessen: CRUD (delete), user stories, XSS + validatie, UI design
-  Ma: database + verbinding (PDO) maken
-  Di: overzichtspagina (naam, afbeelding, platform, status, rating)
-  Wo: detailpagina van een game
+  Ma: database + verbinding (PDO) maken (af)
+  Di: overzichtspagina (naam, afbeelding, platform, status, rating) (af)
+  Wo: detailpagina van een game (af)
   Do: output escapen tegen XSS, styling
   Vr: testen, pull request, bord bijwerken
 
 WEEK 3 - Nieuwe game (CREATE)
   Lessen: data presenteren, wireframes, CSRF, UX design
-  Ma: wireframes maken
-  Di: formulier nieuwe game maken
+  Ma: wireframes maken (af)
+  Di: formulier nieuwe game maken (af)
   Wo: opslaan met prepared statement + afbeelding uploaden/URL
-  Do: validatie, foutmeldingen, dubbele game (naam + jaar) blokkeren
+  Do: validatie, foutmeldingen, dubbele game (naam + jaar) blokkeren (af)
   Vr: testen + sprint retrospective
 
 WEEK 4 - Evaluatieweek 1
