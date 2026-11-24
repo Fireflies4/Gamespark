@@ -27,6 +27,7 @@ if ($action == 'edit') {
     $rating   = $_POST['rating'] ?? '';
     $url      = trim($_POST['afbeelding_url'] ?? '');
     $notities = trim($_POST['notities'] ?? '');
+    $aangeraden_door = trim($_POST['aangeraden_door'] ?? '');
 
     $allowed_platformen = ['PC', 'PlayStation 5', 'PlayStation 4', 'Xbox Series X/S', 'Xbox One', 'Nintendo Switch', 'Nintendo Switch 2', 'Mobiel', 'Anders'];
     $allowed_statussen  = ['Wishlist', 'In bezit', 'Speelt nu', 'Uitgespeeld'];
@@ -70,6 +71,10 @@ if ($action == 'edit') {
 
     if (strlen($notities) > 280) {
         $fouten[] = "De notities mogen maximaal 280 tekens zijn.";
+    }
+
+    if (strlen($aangeraden_door) > 80) {
+        $fouten[] = "Aangeraden door mag maximaal 80 tekens zijn.";
     }
 
     if ($url != '' && (strlen($url) > 255 || !preg_match('#^https?://#i', $url))) {
@@ -139,6 +144,9 @@ if ($action == 'edit') {
     if ($notities == '') {
         $notities = null;
     }
+    if ($aangeraden_door == '') {
+        $aangeraden_door = null;
+    }
 
     //2. Query
     $query = "
@@ -151,7 +159,8 @@ if ($action == 'edit') {
             releasedatum = :releasedatum,
             status = :status,
             rating = :rating,
-            notitie = :notitie
+            notitie = :notitie,
+            aangeraden_door = :aangeraden_door
         WHERE
             id = :id
     ";
@@ -169,6 +178,7 @@ if ($action == 'edit') {
         ":status"         => $status,
         ":rating"         => $rating,
         ":notitie"        => $notities,
+        ":aangeraden_door" => $aangeraden_door,
         ":id"             => $id
     ]);
 
