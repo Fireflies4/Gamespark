@@ -16,6 +16,10 @@ require __DIR__ . '/includes/header.php';
     <a class="btn btn-primary" href="formulier.php">+ Game toevoegen</a>
 </div>
 
+<?php if (isset($_GET['msg'])) {
+    echo "<div class='msg'>" . htmlspecialchars($_GET['msg']) . "</div>";
+} ?>
+
 <?php if (count($games) === 0): ?>
     <p class="leeg">Er staan nog geen games in de lijst.</p>
 <?php else: ?>

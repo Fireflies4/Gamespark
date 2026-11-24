@@ -64,6 +64,9 @@ require 'includes/header.php';
     } else {
         $rating = $game['rating'] . '/5';
     }
+
+    // Class voor de kleur van het status-label: "In bezit" wordt "label-in-bezit"
+    $statusClass = 'label-' . str_replace(' ', '-', strtolower($game['status']));
     ?>
 
     <div class="title-row detail-titel">
@@ -96,7 +99,7 @@ require 'includes/header.php';
             </tr>
             <tr>
                 <th>Status</th>
-                <td><span class="label"><?php echo htmlspecialchars($game['status']); ?></span></td>
+                <td><span class="label <?php echo htmlspecialchars($statusClass); ?>"><?php echo htmlspecialchars($game['status']); ?></span></td>
             </tr>
             <tr>
                 <th>Beoordeling</th>

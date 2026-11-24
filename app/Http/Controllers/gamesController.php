@@ -175,3 +175,47 @@ if ($action == 'edit') {
     header('Location: ' . $base_url . '/game-bekijken.php?id=' . $id . '&msg=' . urlencode('De game is bewerkt'));
     exit();
 }
+
+if ($action == 'delete') {
+
+    // Beveiliging: klopt het CSRF-token van het formulier?
+    if (empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
+        echo "Ongeldig formulier. Ga terug en probeer het opnieuw.";
+        exit();
+    }
+
+    if (is_numeric($_POST['id'] ?? null)) {
+        $id = $_POST['id'];
+    } else {
+        echo "Je hebt geen geldige id meegegeven";
+        exit();
+    }
+
+    //1. Verbinding
+    require_once '../../../config/conn.php';
+
+    // Eerst de afbeelding van de game ophalen
+    $query = "SELECT afbeelding_url FROM games WHERE id = :id";
+    $statement = $pdo->prepare($query);
+    $statement->execute([":id" => $id]);
+    $afbeelding = $statement->fetchColumn();
+
+    // Is het een geüpload bestand (en geen link)? Dan het bestand ook weghalen.
+    if ($afbeelding && str_starts_with($afbeelding, 'img/uploads/')) {
+        @unlink('../../../' . $afbeelding);
+    }
+
+    //2. Query
+    $query = "DELETE FROM games WHERE id = :id";
+
+    //3. Prepare
+    $statement = $pdo->prepare($query);
+
+    //4. Execute
+    $statement->execute([
+        ":id" => $id
+    ]);
+
+    header('Location: ' . $base_url . '/games.php?msg=' . urlencode('De game is verwijderd'));
+    exit();
+}
