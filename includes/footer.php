@@ -13,5 +13,6 @@
             </nav>
         </div>
     </footer>
+    <script src="js/multiselect.js"></script>
 </body>
 </html>

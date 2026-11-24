@@ -9,6 +9,7 @@ function e($tekst) {
 
 $statussen  = ['Wishlist', 'In bezit', 'Speelt nu', 'Uitgespeeld'];
 $platformen = ['PC', 'PlayStation 5', 'PlayStation 4', 'Xbox Series X/S', 'Xbox One', 'Nintendo Switch', 'Nintendo Switch 2', 'Mobiel', 'Anders'];
+$genres     = ['Actie', 'Actie-avontuur', 'Avontuur', 'Battle royale', 'Educatief', 'Horror', 'Metroidvania', 'MMO', 'Open wereld', 'Party', 'Platformer', 'Puzzel', 'Racen', 'Ritme', 'Roguelike', 'RPG', 'Sandbox', 'Shooter', 'Simulatie', 'Sport', 'Strategie', 'Survival', 'Vechtspel', 'Visual novel', 'Anders'];
 $toegestaan = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/gif' => 'gif'];
 $maxJaar    = date('Y') + 2; // huidig jaar + 2, zodat aankomende games ook kunnen
 
@@ -20,6 +21,7 @@ if (empty($_SESSION['csrf_token'])) {
 $fouten = [];
 $naam = $platform = $genre = $releasedatum = $status = $rating = $url = $notities = $aangeraden_door = '';
 $gekozen = [];
+$gekozenGenres = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -33,7 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!is_array($gekozen)) {
         $gekozen = [];
     }
-    $genre    = trim($_POST['genre'] ?? '');
+    $gekozenGenres = $_POST['genre'] ?? [];
+    if (!is_array($gekozenGenres)) {
+        $gekozenGenres = [];
+    }
+    $genre    = implode(', ', $gekozenGenres); // ['RPG', 'Actie'] wordt "RPG, Actie"
     $releasedatum     = trim($_POST['releasedatum'] ?? '');
     $status   = $_POST['status'] ?? '';
     $rating   = $_POST['rating'] ?? '';
@@ -55,8 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $fouten[] = 'Kies minstens één geldig platform.';
     }
     $platform = implode(', ', $gekozen);
-    if (strlen($genre) > 40) {
-        $fouten[] = 'Het genre mag maximaal 40 tekens zijn.';
+    if (array_diff($gekozenGenres, $genres)) {
+        $fouten[] = 'Kies alleen geldige genres.';
     }
     if ($releasedatum == '') {
         $fouten[] = "Vul een releasedatum in.";
@@ -169,30 +175,29 @@ require __DIR__ . '/includes/header.php';
         </details>
     </div>
 
-    <script>
-    // Toont de gekozen platforms in de balk en sluit de lijst bij een klik erbuiten
-    (function () {
-        var kiezer = document.getElementById('platform-kiezer');
-        var titel = kiezer.querySelector('summary');
-        var vinkjes = kiezer.querySelectorAll('input[type="checkbox"]');
-
-        function bijwerken() {
-            var namen = [];
-            vinkjes.forEach(function (v) { if (v.checked) namen.push(v.value); });
-            titel.textContent = namen.length ? namen.join(', ') : '-- Kies platforms --';
-        }
-
-        vinkjes.forEach(function (v) { v.addEventListener('change', bijwerken); });
-        document.addEventListener('click', function (ev) {
-            if (!kiezer.contains(ev.target)) kiezer.removeAttribute('open');
-        });
-        bijwerken();
-    })();
-    </script>
-
     <div class="veld">
-        <label for="genre">Genre</label>
-        <input type="text" id="genre" name="genre" value="<?= e($genre) ?>">
+        <span class="veld-titel">Genre</span>
+        <details class="multiselect" id="genre-kiezer">
+            <summary>
+                <?php
+                // In de balk tonen welke genres gekozen zijn, of "-- Kies genres --"
+                if (count($gekozenGenres) > 0) {
+                    echo htmlspecialchars(implode(', ', $gekozenGenres));
+                } else {
+                    echo "-- Kies genres --";
+                }
+                ?>
+            </summary>
+            <div class="opties">
+                <?php foreach ($genres as $g) { ?>
+                    <label>
+                        <input type="checkbox" name="genre[]" value="<?php echo $g; ?>"
+                            <?php if (in_array($g, $gekozenGenres)) { echo "checked"; } ?>>
+                        <?php echo $g; ?>
+                    </label>
+                <?php } ?>
+            </div>
+        </details>
     </div>
 
     <div class="veld">

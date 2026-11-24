@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS games (
     naam VARCHAR(100) NOT NULL,
     afbeelding_url VARCHAR(255),
     platform VARCHAR(150) NOT NULL,
-    genre VARCHAR(40),
+    genre VARCHAR(255),
     releasedatum DATE NOT NULL,
     status VARCHAR(20) NOT NULL,
     rating INT,

@@ -21,7 +21,7 @@ if ($action == 'edit') {
     //Variabelen vullen
     $naam     = trim($_POST['naam'] ?? '');
     $gekozen  = $_POST['platform'] ?? [];
-    $genre    = trim($_POST['genre'] ?? '');
+    $gekozenGenres = $_POST['genre'] ?? [];
     $releasedatum     = trim($_POST['releasedatum'] ?? '');
     $status   = $_POST['status'] ?? '';
     $rating   = $_POST['rating'] ?? '';
@@ -53,9 +53,17 @@ if ($action == 'edit') {
     }
     $platform = implode(', ', $gekozen); // ['PC', 'Mobiel'] wordt "PC, Mobiel"
 
-    if (strlen($genre) > 40) {
-        $fouten[] = "Het genre mag maximaal 40 tekens zijn.";
+    $allowed_genres = ['Actie', 'Actie-avontuur', 'Avontuur', 'Battle royale', 'Educatief', 'Horror', 'Metroidvania', 'MMO', 'Open wereld', 'Party', 'Platformer', 'Puzzel', 'Racen', 'Ritme', 'Roguelike', 'RPG', 'Sandbox', 'Shooter', 'Simulatie', 'Sport', 'Strategie', 'Survival', 'Vechtspel', 'Visual novel', 'Anders'];
+
+    if (!is_array($gekozenGenres)) {
+        $gekozenGenres = [];
     }
+    foreach ($gekozenGenres as $gekozenGenre) {
+        if (!in_array($gekozenGenre, $allowed_genres)) {
+            $fouten[] = "Kies alleen geldige genres.";
+        }
+    }
+    $genre = implode(', ', $gekozenGenres); // ['RPG', 'Actie'] wordt "RPG, Actie"
 
     if ($releasedatum == '') {
         $fouten[] = "Vul een releasedatum in.";

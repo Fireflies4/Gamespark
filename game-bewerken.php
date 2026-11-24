@@ -8,6 +8,7 @@ if (empty($_SESSION['csrf_token'])) {
 
 $platformen = ['PC', 'PlayStation 5', 'PlayStation 4', 'Xbox Series X/S', 'Xbox One', 'Nintendo Switch', 'Nintendo Switch 2', 'Mobiel', 'Anders'];
 $statussen  = ['Wishlist', 'In bezit', 'Speelt nu', 'Uitgespeeld'];
+$genres     = ['Actie', 'Actie-avontuur', 'Avontuur', 'Battle royale', 'Educatief', 'Horror', 'Metroidvania', 'MMO', 'Open wereld', 'Party', 'Platformer', 'Puzzel', 'Racen', 'Ritme', 'Roguelike', 'RPG', 'Sandbox', 'Shooter', 'Simulatie', 'Sport', 'Strategie', 'Survival', 'Vechtspel', 'Visual novel', 'Anders'];
 
 $id = $_GET['id'] ?? null;
 
@@ -37,6 +38,9 @@ if (is_numeric($id)) {
 
     // De platforms staan als "PC, Mobiel" in de database. Dit maakt er een lijst van.
     $gekozen = explode(', ', $game['platform']);
+
+    // Hetzelfde voor de genres: "RPG, Actie" wordt ['RPG', 'Actie']
+    $gekozenGenres = explode(', ', $game['genre'] ?? '');
 
     // Huidige afbeelding, of het dummy-plaatje als er geen is
     if ($game['afbeelding_url'] == '') {
@@ -83,8 +87,28 @@ if (is_numeric($id)) {
         </div>
 
         <div class="veld">
-            <label for="genre">Genre</label>
-            <input type="text" name="genre" id="genre" value="<?php echo htmlspecialchars($game['genre'] ?? ''); ?>">
+            <span class="veld-titel">Genre</span>
+            <details class="multiselect" id="genre-kiezer">
+                <summary>
+                    <?php
+                    // In de balk tonen welke genres gekozen zijn, of "-- Kies genres --"
+                    if ($game['genre'] != '') {
+                        echo htmlspecialchars($game['genre']);
+                    } else {
+                        echo "-- Kies genres --";
+                    }
+                    ?>
+                </summary>
+                <div class="opties">
+                    <?php foreach ($genres as $genre) { ?>
+                        <label>
+                            <input type="checkbox" name="genre[]" value="<?php echo $genre; ?>"
+                                <?php if (in_array($genre, $gekozenGenres)) { echo "checked"; } ?>>
+                            <?php echo $genre; ?>
+                        </label>
+                    <?php } ?>
+                </div>
+            </details>
         </div>
 
         <div class="veld">

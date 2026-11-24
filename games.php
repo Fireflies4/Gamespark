@@ -7,12 +7,7 @@ require_once 'config/conn.php';
 $platformen = ['PC', 'PlayStation 5', 'PlayStation 4', 'Xbox Series X/S', 'Xbox One', 'Nintendo Switch', 'Nintendo Switch 2', 'Mobiel', 'Anders'];
 $statussen  = ['Wishlist', 'In bezit', 'Speelt nu', 'Uitgespeeld'];
 $ratings    = ['1', '2', '3', '4', '5'];
-
-// Alle genres die in de database staan (voor de genre-filter)
-$query = "SELECT DISTINCT genre FROM games WHERE genre IS NOT NULL AND genre != '' ORDER BY genre";
-$statement = $pdo->prepare($query);
-$statement->execute([]);
-$genres = $statement->fetchAll(PDO::FETCH_COLUMN);
+$genres     = ['Actie', 'Actie-avontuur', 'Avontuur', 'Battle royale', 'Educatief', 'Horror', 'Metroidvania', 'MMO', 'Open wereld', 'Party', 'Platformer', 'Puzzel', 'Racen', 'Ritme', 'Roguelike', 'RPG', 'Sandbox', 'Shooter', 'Simulatie', 'Sport', 'Strategie', 'Survival', 'Vechtspel', 'Visual novel', 'Anders'];
 
 // De gekozen filters uit de link halen, bijvoorbeeld: games.php?status=Wishlist&rating_van=3
 $filterPlatform  = $_GET['platform'] ?? '';
@@ -56,7 +51,8 @@ if ($filterPlatform != '') {
     $parameters[':platform'] = $filterPlatform;
 }
 if ($filterGenre != '') {
-    $query .= " AND genre = :genre";
+    // Ook genre kan een lijst zijn ("RPG, Actie"), dus net als bij platform FIND_IN_SET
+    $query .= " AND FIND_IN_SET(:genre, REPLACE(genre, ', ', ','))";
     $parameters[':genre'] = $filterGenre;
 }
 if ($filterStatus != '') {
