@@ -24,6 +24,7 @@
     --speelt-nu: #C6DEBF;       /* status: Speelt nu (groen) */
     --uitgespeeld: #EBD9A8;     /* status: Uitgespeeld (goud) */
     --label-tekst: #38302E;     /* tekst op de status-labels */
+    --icoon-filter: invert(1);  /* maakt zwarte iconen wit (voor het donkere schema) */
 }
 
 .licht {
@@ -49,6 +50,7 @@
     --speelt-nu: #C6DEBF;
     --uitgespeeld: #EBD9A8;
     --label-tekst: #38302E;
+    --icoon-filter: none;
 }
 
 * {
@@ -538,4 +540,83 @@ h2 {
 .label-uitgespeeld {
     background: var(--uitgespeeld);
     color: var(--label-tekst);
+}
+
+/* ---- Filters op de overzichtspagina ---- */
+.filters {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    align-items: end;
+    margin-bottom: 16px;
+    padding: 16px;
+    background: var(--vlak);
+    border: 1px solid var(--rand);
+    border-radius: 6px;
+}
+
+.filter-veld {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.filter-veld label {
+    font-size: 12px;
+    color: var(--grijs);
+}
+
+.filter-veld select {
+    padding: 7px 8px;
+    font: inherit;
+    border: 1px solid var(--rand);
+    border-radius: 6px;
+    background: var(--invoer);
+    color: var(--tekst);
+}
+
+.filter-knoppen {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 8px;
+}
+
+.filter-aantal {
+    margin-bottom: 12px;
+    color: var(--grijs);
+}
+
+/* Op een smal scherm 2 filters naast elkaar */
+@media (max-width: 700px) {
+    .filters {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ---- Filterknop met icoon (klapt de filters open en dicht) ---- */
+.filter-uitklap {
+    margin-bottom: 16px;
+}
+
+.filter-knop {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    list-style: none;           /* haalt het standaard driehoekje weg */
+}
+
+.filter-knop::-webkit-details-marker {
+    display: none;              /* hetzelfde, maar voor Chrome/Edge */
+}
+
+.filter-icoon {
+    width: 18px;
+    height: 18px;
+    filter: var(--icoon-filter);
+}
+
+.filter-uitklap[open] .filter-knop {
+    border-color: var(--accent);
 }
