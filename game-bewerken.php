@@ -126,13 +126,18 @@ if (is_numeric($id)) {
             <input type="url" name="afbeelding_url" id="afbeelding_url" placeholder="https://...">
         </div>
 
-        <div class="veld">
+        <div class="veld veld-notities">
             <label for="notities">Notities</label>
             <textarea name="notities" id="notities" rows="4"><?php echo htmlspecialchars($game['notitie'] ?? ''); ?></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary">Wijzigingen opslaan</button>
+        <div class="veld">
+            <label for="aangeraden_door">Aangeraden door</label>
+            <input type="text" name="aangeraden_door" id="aangeraden_door" value="<?php echo htmlspecialchars($game['aangeraden_door'] ?? ''); ?>">
+        </div>
+
         <a class="btn" href="game-bekijken.php?id=<?php echo $id; ?>">Annuleren</a>
+        <button type="submit" class="btn btn-primary">Wijzigingen opslaan</button>
     </form>
 
     <?php

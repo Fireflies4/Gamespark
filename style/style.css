@@ -263,6 +263,12 @@ table.games {
 .formulier textarea {
         resize: vertical;
     }
+.formulier .veld-notities {
+        grid-row: span 2;
+    }
+.formulier .veld-notities textarea {
+        flex: 1;
+    }
 .formulier .knoppen {
         display: flex;
         gap: 0.75rem;

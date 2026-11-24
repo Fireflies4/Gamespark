@@ -106,6 +106,13 @@ require 'includes/header.php';
                 <td><?php echo $rating; ?></td>
             </tr>
 
+            <?php if (!empty($game['aangeraden_door'])) { ?>
+                <tr>
+                    <th>Aangeraden door</th>
+                    <td><?php echo htmlspecialchars($game['aangeraden_door']); ?></td>
+                </tr>
+            <?php } ?>
+
             <?php if ($game['notitie'] != '') { ?>
                 <tr>
                     <th>Notitie</th>

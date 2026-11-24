@@ -18,7 +18,7 @@ if (empty($_SESSION['csrf_token'])) {
 }
 
 $fouten = [];
-$naam = $platform = $genre = $releasedatum = $status = $rating = $url = $notities = '';
+$naam = $platform = $genre = $releasedatum = $status = $rating = $url = $notities = $aangeraden_door = '';
 $gekozen = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rating   = $_POST['rating'] ?? '';
     $url      = trim($_POST['afbeelding_url'] ?? '');
     $notities = trim($_POST['notities'] ?? '');
+    $aangeraden_door = trim($_POST['aangeraden_door'] ?? '');
 
     // Alleen naam, platform, genre en releasedatum ingevuld? Dan wordt de status automatisch Wishlist
     $geenUpload = !isset($_FILES['afbeelding']) || $_FILES['afbeelding']['error'] === UPLOAD_ERR_NO_FILE;
@@ -68,6 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if (strlen($notities) > 280) {
         $fouten[] = 'De notities mogen maximaal 280 tekens zijn.';
+    }
+    if (strlen($aangeraden_door) > 80) {
+        $fouten[] = 'Aangeraden door mag maximaal 80 tekens zijn.';
     }
     if (strlen($url) > 255) {
         $fouten[] = 'De link mag maximaal 255 tekens zijn.';
@@ -110,10 +114,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$fouten) {
         $stmt = $pdo->prepare(
-            'INSERT INTO games (naam, afbeelding_url, platform, genre, releasedatum, status, rating, notitie)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+            'INSERT INTO games (naam, afbeelding_url, platform, genre, releasedatum, status, rating, notitie, aangeraden_door)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
         );
-        $stmt->execute([$naam, $afbeelding, $platform, $genre ?: null, $releasedatum, $status, $rating ?: null, $notities ?: null]);
+        $stmt->execute([$naam, $afbeelding, $platform, $genre ?: null, $releasedatum, $status, $rating ?: null, $notities ?: null, $aangeraden_door ?: null]);
 
         unset($_SESSION['csrf_token']);
         header('Location: games.php');
@@ -224,13 +228,18 @@ require __DIR__ . '/includes/header.php';
         <input type="url" id="afbeelding_url" name="afbeelding_url" placeholder="https://..." value="<?= e($url) ?>">
     </div>
 
-    <div class="veld">
+    <div class="veld veld-notities">
         <label for="notities">Notities</label>
         <textarea id="notities" name="notities" rows="4"><?= e($notities) ?></textarea>
     </div>
 
-    <button type="submit" class="btn btn-primary">Game opslaan</button>
+    <div class="veld">
+        <label for="aangeraden_door">Aangeraden door</label>
+        <input type="text" id="aangeraden_door" name="aangeraden_door" value="<?= e($aangeraden_door) ?>">
+    </div>
+
     <a class="btn" href="games.php">Annuleren</a>
+    <button type="submit" class="btn btn-primary">Game opslaan</button>
 </form>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>
