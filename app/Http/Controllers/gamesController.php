@@ -22,7 +22,7 @@ if ($action == 'edit') {
     $naam     = trim($_POST['naam'] ?? '');
     $gekozen  = $_POST['platform'] ?? [];
     $genre    = trim($_POST['genre'] ?? '');
-    $jaar     = trim($_POST['jaar'] ?? '');
+    $releasedatum     = trim($_POST['releasedatum'] ?? '');
     $status   = $_POST['status'] ?? '';
     $rating   = $_POST['rating'] ?? '';
     $url      = trim($_POST['afbeelding_url'] ?? '');
@@ -56,8 +56,8 @@ if ($action == 'edit') {
         $fouten[] = "Het genre mag maximaal 40 tekens zijn.";
     }
 
-    if (!ctype_digit($jaar) || $jaar < 1970 || $jaar > $maxJaar) {
-        $fouten[] = "Vul een geldig jaar in (1970 t/m $maxJaar).";
+    if ($releasedatum == '') {
+        $fouten[] = "Vul een releasedatum in.";
     }
 
     if (!in_array($status, $allowed_statussen)) {
@@ -95,16 +95,16 @@ if ($action == 'edit') {
     //1. Verbinding
     require_once '../../../config/conn.php';
 
-    // Bestaat er al een ANDERE game met dezelfde naam en hetzelfde jaar?
-    $query = "SELECT COUNT(*) FROM games WHERE naam = :naam AND releasejaar = :jaar AND id != :id";
+    // Bestaat er al een ANDERE game met dezelfde naam en dezelfde releasedatum?
+    $query = "SELECT COUNT(*) FROM games WHERE naam = :naam AND releasedatum = :releasedatum AND id != :id";
     $statement = $pdo->prepare($query);
     $statement->execute([
         ":naam" => $naam,
-        ":jaar" => $jaar,
+        ":releasedatum" => $releasedatum,
         ":id"   => $id
     ]);
     if ($statement->fetchColumn() > 0) {
-        $fouten[] = "Er staat al een andere game met dezelfde naam en hetzelfde jaar in de lijst.";
+        $fouten[] = "Er staat al een andere game met dezelfde naam en dezelfde releasedatum in de lijst.";
     }
 
     // Zijn er fouten? Dan terug naar het formulier met de foutmelding.
@@ -148,7 +148,7 @@ if ($action == 'edit') {
             afbeelding_url = :afbeelding_url,
             platform = :platform,
             genre = :genre,
-            releasejaar = :releasejaar,
+            releasedatum = :releasedatum,
             status = :status,
             rating = :rating,
             notitie = :notitie
@@ -165,7 +165,7 @@ if ($action == 'edit') {
         ":afbeelding_url" => $afbeelding,
         ":platform"       => $platform,
         ":genre"          => $genre,
-        ":releasejaar"    => $jaar,
+        ":releasedatum"    => $releasedatum,
         ":status"         => $status,
         ":rating"         => $rating,
         ":notitie"        => $notities,

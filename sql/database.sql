@@ -7,15 +7,15 @@ CREATE TABLE IF NOT EXISTS games (
     afbeelding_url VARCHAR(255),
     platform VARCHAR(150) NOT NULL,
     genre VARCHAR(40),
-    releasejaar INT NOT NULL,
+    releasedatum DATE NOT NULL,
     status VARCHAR(20) NOT NULL,
     rating INT,
     notitie VARCHAR(280),
     aangeraden_door VARCHAR(80),
-    UNIQUE (naam, releasejaar)
+    UNIQUE (naam, releasedatum)
 );
 
-INSERT INTO games (naam, platform, genre, releasejaar, status, rating) VALUES
-    ('God of War', 'PlayStation', 'Actie-avontuur', 2018, 'In bezit', 5),
-    ('Hollow Knight', 'PC', 'Platformer', 2017, 'Speelt nu', 4),
-    ('Stardew Valley', 'PC', 'Simulatie', 2016, 'Uitgespeeld', 5);
+INSERT INTO games (naam, platform, genre, releasedatum, status, rating) VALUES
+    ('God of War', 'PlayStation', 'Actie-avontuur', '2018-04-20', 'In bezit', 5),
+    ('Hollow Knight', 'PC', 'Platformer', '2017-02-24', 'Speelt nu', 4),
+    ('Stardew Valley', 'PC', 'Simulatie', '2016-02-26', 'Uitgespeeld', 5);

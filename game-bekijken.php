@@ -94,8 +94,8 @@ require 'includes/header.php';
                 <td><?php echo htmlspecialchars($genre); ?></td>
             </tr>
             <tr>
-                <th>Releasejaar</th>
-                <td><?php echo htmlspecialchars($game['releasejaar']); ?></td>
+                <th>Releasedatum</th>
+                <td><?php echo htmlspecialchars($game['releasedatum']); ?></td>
             </tr>
             <tr>
                 <th>Status</th>

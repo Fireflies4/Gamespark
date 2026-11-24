@@ -40,7 +40,7 @@ if (is_numeric($id)) {
 
     <div class="hero">
         <h1>Game verwijderen</h1>
-        <p> Weet je zeker dat je <strong><?php echo htmlspecialchars($game['naam']); ?> (<?php echo $game['releasejaar']; ?>)</strong> wilt verwijderen? Dit kan niet ongedaan worden.</p>
+        <p> Weet je zeker dat je <strong><?php echo htmlspecialchars($game['naam']); ?> (<?php echo $game['releasedatum']; ?>)</strong> wilt verwijderen? Dit kan niet ongedaan worden.</p>
 
         <form action="<?php echo $base_url; ?>/app/Http/Controllers/gamesController.php" method="post">
             <input type="hidden" name="action" value="delete">

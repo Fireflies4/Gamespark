@@ -18,7 +18,7 @@ if (empty($_SESSION['csrf_token'])) {
 }
 
 $fouten = [];
-$naam = $platform = $genre = $jaar = $status = $rating = $url = $notities = '';
+$naam = $platform = $genre = $releasedatum = $status = $rating = $url = $notities = '';
 $gekozen = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -34,13 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $gekozen = [];
     }
     $genre    = trim($_POST['genre'] ?? '');
-    $jaar     = trim($_POST['jaar'] ?? '');
+    $releasedatum     = trim($_POST['releasedatum'] ?? '');
     $status   = $_POST['status'] ?? '';
     $rating   = $_POST['rating'] ?? '';
     $url      = trim($_POST['afbeelding_url'] ?? '');
     $notities = trim($_POST['notities'] ?? '');
 
-    // Alleen naam, platform, genre en jaar ingevuld? Dan wordt de status automatisch Wishlist
+    // Alleen naam, platform, genre en releasedatum ingevuld? Dan wordt de status automatisch Wishlist
     $geenUpload = !isset($_FILES['afbeelding']) || $_FILES['afbeelding']['error'] === UPLOAD_ERR_NO_FILE;
     if ($status === '' && $genre !== '' && $rating === '' && $url === '' && $notities === '' && $geenUpload) {
         $status = 'Wishlist';
@@ -57,8 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (strlen($genre) > 40) {
         $fouten[] = 'Het genre mag maximaal 40 tekens zijn.';
     }
-    if (!ctype_digit($jaar) || $jaar < 1970 || $jaar > $maxJaar) {
-        $fouten[] = "Vul een geldig jaar in (1970 t/m $maxJaar).";
+    if ($releasedatum == '') {
+        $fouten[] = "Vul een releasedatum in.";
     }
     if (!in_array($status, $statussen)) {
         $fouten[] = 'Kies een geldige status.';
@@ -86,12 +86,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $fouten[] = 'Vul een geldige link in (begint met http:// of https://).';
     }
 
-    // Dubbele game (zelfde naam en jaar)
+    // Dubbele game (zelfde naam en releasedatum)
     if (!$fouten) {
-        $stmt = $pdo->prepare('SELECT COUNT(*) FROM games WHERE naam = ? AND releasejaar = ?');
-        $stmt->execute([$naam, $jaar]);
+        $stmt = $pdo->prepare('SELECT COUNT(*) FROM games WHERE naam = ? AND releasedatum = ?');
+        $stmt->execute([$naam, $releasedatum]);
         if ($stmt->fetchColumn() > 0) {
-            $fouten[] = 'Deze game (zelfde naam en jaar) staat al in de lijst.';
+            $fouten[] = 'Deze game (zelfde naam en releasedatum) staat al in de lijst.';
         }
     }
 
@@ -110,10 +110,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$fouten) {
         $stmt = $pdo->prepare(
-            'INSERT INTO games (naam, afbeelding_url, platform, genre, releasejaar, status, rating, notitie)
+            'INSERT INTO games (naam, afbeelding_url, platform, genre, releasedatum, status, rating, notitie)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
         );
-        $stmt->execute([$naam, $afbeelding, $platform, $genre ?: null, $jaar, $status, $rating ?: null, $notities ?: null]);
+        $stmt->execute([$naam, $afbeelding, $platform, $genre ?: null, $releasedatum, $status, $rating ?: null, $notities ?: null]);
 
         unset($_SESSION['csrf_token']);
         header('Location: games.php');
@@ -192,8 +192,8 @@ require __DIR__ . '/includes/header.php';
     </div>
 
     <div class="veld">
-        <label for="jaar">Releasejaar *</label>
-        <input type="number" id="jaar" name="jaar" value="<?= e($jaar) ?>">
+        <label for="releasedatum">Releasedatum *</label>
+        <input type="date" id="releasedatum" name="releasedatum" value="<?= e($releasedatum) ?>">
     </div>
 
     <div class="veld">

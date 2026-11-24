@@ -88,8 +88,8 @@ if (is_numeric($id)) {
         </div>
 
         <div class="veld">
-            <label for="jaar">Releasejaar *</label>
-            <input type="number" name="jaar" id="jaar" value="<?php echo $game['releasejaar']; ?>">
+            <label for="releasedatum">Releasedatum *</label>
+            <input type="date" name="releasedatum" id="releasedatum" value="<?php echo $game['releasedatum']; ?>">
         </div>
 
         <div class="veld">
