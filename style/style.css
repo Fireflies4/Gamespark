@@ -2,28 +2,28 @@
 /* Donker (standaard). Zet class="licht" op <body> voor het lichte schema. */
 
 :root {
-    --achtergrond: #38302E;     /* achtergrond van de pagina (Deep Mocha) */
-    --vlak: #433B39;            /* header, kaarten, tabel en footer */
-    --invoer: #38302E;          /* invulvelden in formulieren */
-    --rand: #6F6866;            /* randen en lijnen (Dim Grey) */
-    --grijs: #9CAEA9;           /* kleine tekst en labels (Ash Grey) */
-    --tekst: #CCDAD1;           /* gewone tekst (Ash Grey licht) */
-    --foto-rand: #788585;       /* rand om foto's (Grey Olive) */
+    --achtergrond: #121822;     /* achtergrond van de pagina (diep navy) */
+    --vlak: #1A2230;            /* header, kaarten, tabel en footer (navy grijs) */
+    --invoer: #0F141C;          /* invulvelden in formulieren (donkerder) */
+    --rand: #2A3546;            /* randen en lijnen (blauwgrijs) */
+    --grijs: #8B9AB0;           /* kleine tekst en labels (licht blauwgrijs) */
+    --tekst: #DDE4EE;           /* gewone tekst (gebroken wit) */
+    --foto-rand: #3A4A60;       /* rand om foto's */
 
-    --accent: #E0A458;          /* amber "spark": hoofdknoppen, logo, actief menu */
-    --accent-hover: #EDBA7A;    /* accent als je eroverheen gaat */
-    --accent-tekst: #38302E;    /* tekst op het accent */
+    --accent: #3FA9F5;          /* helder blauw: hoofdknoppen, actief menu */
+    --accent-hover: #66BDF8;    /* accent als je eroverheen gaat */
+    --accent-tekst: #0B1220;    /* tekst op het accent */
 
-    --groen-tekst: #C6DEBF;     /* tekst van succesmeldingen */
-    --groen-vlak: #2F4A3A;      /* achtergrond van succesmeldingen */
-    --rood-tekst: #F2C4BE;      /* tekst van foutmeldingen */
-    --rood-vlak: #4E2A27;       /* achtergrond van foutmeldingen */
+    --groen-tekst: #7EE2A8;     /* tekst van succesmeldingen */
+    --groen-vlak: #12301F;      /* achtergrond van succesmeldingen */
+    --rood-tekst: #FF9A9A;      /* tekst van foutmeldingen */
+    --rood-vlak: #3A1518;       /* achtergrond van foutmeldingen */
 
-    --wishlist: #D8CCE3;        /* status: Wishlist (lavendel) */
-    --in-bezit: #C9D9E8;        /* status: In bezit (blauw) */
-    --speelt-nu: #C6DEBF;       /* status: Speelt nu (groen) */
-    --uitgespeeld: #EBD9A8;     /* status: Uitgespeeld (goud) */
-    --label-tekst: #38302E;     /* tekst op de status-labels */
+    --wishlist: #A99BF8;        /* status: Wishlist (paars) */
+    --in-bezit: #7CC4F8;        /* status: In bezit (blauw) */
+    --speelt-nu: #5ED39A;       /* status: Speelt nu (groen) */
+    --uitgespeeld: #F0C75E;     /* status: Uitgespeeld (goud) */
+    --label-tekst: #0B1220;     /* tekst op de status-labels */
     --icoon-filter: invert(1);  /* maakt zwarte iconen wit (voor het donkere schema) */
 }
 
@@ -65,7 +65,7 @@ body {
     flex-direction: column;
     background: var(--achtergrond);
     color: var(--tekst);
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     font-size: 14px;
 }
 
@@ -660,4 +660,13 @@ h2 {
 .popup p {
     margin-bottom: 20px;
     line-height: 1.5;
+}
+
+/* ---- Lettertypes ---- */
+/* Koppen, logo-tekst en knoppen in Chakra Petch (gaming-gevoel), de rest in Inter (zie body) */
+h1,
+h2,
+.brand,
+.btn {
+    font-family: 'Chakra Petch', Arial, sans-serif;
 }
