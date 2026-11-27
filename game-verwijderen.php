@@ -1,10 +1,4 @@
 <?php
-session_start();
-
-// CSRF-token aanmaken (beveiliging van het formulier)
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
 
 $id = $_GET['id'] ?? null;
 
@@ -45,7 +39,6 @@ if (is_numeric($id)) {
         <form action="<?php echo $base_url; ?>/app/Http/Controllers/gamesController.php" method="post">
             <input type="hidden" name="action" value="delete">
             <input type="hidden" name="id" value="<?php echo $id; ?>">
-            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
             <button type="submit" class="btn btn-primary">Ja, verwijderen</button>
             <a class="btn" href="game-bekijken.php?id=<?php echo $id; ?>">Annuleren</a>

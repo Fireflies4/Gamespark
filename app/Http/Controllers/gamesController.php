@@ -1,15 +1,8 @@
 <?php
-session_start();
 
 $action = $_POST['action'] ?? '';
 
 if ($action == 'edit') {
-
-    // Beveiliging: klopt het CSRF-token van het formulier?
-    if (empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
-        echo "Ongeldig formulier. Ga terug en probeer het opnieuw.";
-        exit();
-    }
 
     if (is_numeric($_POST['id'] ?? null)) {
         $id = $_POST['id'];
@@ -66,7 +59,7 @@ if ($action == 'edit') {
     $genre = implode(', ', $gekozenGenres); // ['RPG', 'Actie'] wordt "RPG, Actie"
 
     if ($releasedatum == '') {
-        $fouten[] = "Vul een releasedatum in.";
+        $fouten[] = "vul een releasedatum in.";
     }
 
     if (!in_array($status, $allowed_statussen)) {
@@ -105,18 +98,11 @@ if ($action == 'edit') {
         $fouten[] = "Het uploaden van de afbeelding is mislukt.";
     }
 
-    //1. Verbinding
-    require_once '../../../config/conn.php';
+    // Bestaat er al een ANDERE game met dezelfde naam en dezelfde releasedatum? (Model vult $aantalDubbel)
+    $modelActie = 'dubbel';
+    require __DIR__.'/../../models/gamesModel.php';
 
-    // Bestaat er al een ANDERE game met dezelfde naam en dezelfde releasedatum?
-    $query = "SELECT COUNT(*) FROM games WHERE naam = :naam AND releasedatum = :releasedatum AND id != :id";
-    $statement = $pdo->prepare($query);
-    $statement->execute([
-        ":naam" => $naam,
-        ":releasedatum" => $releasedatum,
-        ":id"   => $id
-    ]);
-    if ($statement->fetchColumn() > 0) {
+    if ($aantalDubbel > 0) {
         $fouten[] = "Er staat al een andere game met dezelfde naam en dezelfde releasedatum in de lijst.";
     }
 
@@ -126,11 +112,9 @@ if ($action == 'edit') {
         exit();
     }
 
-    // De huidige afbeelding ophalen, die houden we als er niks nieuws is gekozen
-    $query = "SELECT afbeelding_url FROM games WHERE id = :id";
-    $statement = $pdo->prepare($query);
-    $statement->execute([":id" => $id]);
-    $afbeelding = $statement->fetchColumn();
+    // De huidige afbeelding ophalen, die houden we als er niks nieuws is gekozen (Model vult $afbeelding)
+    $modelActie = 'afbeelding';
+    require __DIR__.'/../../models/gamesModel.php';
 
     if ($nieuwePlaatje) {
         // Het plaatje opslaan in img/uploads met een willekeurige naam
@@ -156,51 +140,15 @@ if ($action == 'edit') {
         $aangeraden_door = null;
     }
 
-    //2. Query
-    $query = "
-        UPDATE games
-        SET
-            naam = :naam,
-            afbeelding_url = :afbeelding_url,
-            platform = :platform,
-            genre = :genre,
-            releasedatum = :releasedatum,
-            status = :status,
-            rating = :rating,
-            notitie = :notitie,
-            aangeraden_door = :aangeraden_door
-        WHERE
-            id = :id
-    ";
-
-    //3. Prepare
-    $statement = $pdo->prepare($query);
-
-    //4. Execute
-    $statement->execute([
-        ":naam"           => $naam,
-        ":afbeelding_url" => $afbeelding,
-        ":platform"       => $platform,
-        ":genre"          => $genre,
-        ":releasedatum"    => $releasedatum,
-        ":status"         => $status,
-        ":rating"         => $rating,
-        ":notitie"        => $notities,
-        ":aangeraden_door" => $aangeraden_door,
-        ":id"             => $id
-    ]);
+    // Opslaan via het Model
+    $modelActie = 'edit';
+    require __DIR__.'/../../models/gamesModel.php';
 
     header('Location: ' . $base_url . '/game-bekijken.php?id=' . $id . '&msg=' . urlencode('De game is bewerkt'));
     exit();
 }
 
 if ($action == 'delete') {
-
-    // Beveiliging: klopt het CSRF-token van het formulier?
-    if (empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
-        echo "Ongeldig formulier. Ga terug en probeer het opnieuw.";
-        exit();
-    }
 
     if (is_numeric($_POST['id'] ?? null)) {
         $id = $_POST['id'];
@@ -209,30 +157,18 @@ if ($action == 'delete') {
         exit();
     }
 
-    //1. Verbinding
-    require_once '../../../config/conn.php';
-
-    // Eerst de afbeelding van de game ophalen
-    $query = "SELECT afbeelding_url FROM games WHERE id = :id";
-    $statement = $pdo->prepare($query);
-    $statement->execute([":id" => $id]);
-    $afbeelding = $statement->fetchColumn();
+    // Eerst de afbeelding van de game ophalen (Model vult $afbeelding)
+    $modelActie = 'afbeelding';
+    require __DIR__.'/../../models/gamesModel.php';
 
     // Is het een geüpload bestand (en geen link)? Dan het bestand ook weghalen.
     if ($afbeelding && str_starts_with($afbeelding, 'img/uploads/')) {
         @unlink('../../../' . $afbeelding);
     }
 
-    //2. Query
-    $query = "DELETE FROM games WHERE id = :id";
-
-    //3. Prepare
-    $statement = $pdo->prepare($query);
-
-    //4. Execute
-    $statement->execute([
-        ":id" => $id
-    ]);
+    // Verwijderen via het Model
+    $modelActie = 'delete';
+    require __DIR__.'/../../models/gamesModel.php';
 
     header('Location: ' . $base_url . '/games.php?msg=' . urlencode('De game is verwijderd'));
     exit();

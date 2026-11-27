@@ -1,7 +1,6 @@
 <?php
 // Formulier: nieuwe game toevoegen
 require_once __DIR__ . '/db.php';
-session_start();
 
 function e($tekst) {
     return htmlspecialchars($tekst, ENT_QUOTES, 'UTF-8');
@@ -13,22 +12,12 @@ $genres     = ['Actie', 'Actie-avontuur', 'Avontuur', 'Battle royale', 'Educatie
 $toegestaan = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/gif' => 'gif'];
 $maxJaar    = date('Y') + 2; // huidig jaar + 2, zodat aankomende games ook kunnen
 
-// CSRF-token aanmaken
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-
 $fouten = [];
 $naam = $platform = $genre = $releasedatum = $status = $rating = $url = $notities = $aangeraden_door = '';
 $gekozen = [];
 $gekozenGenres = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    // CSRF controleren
-    if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
-        exit('Ongeldig formulier. Ga terug en probeer het opnieuw.');
-    }
 
     $naam     = trim($_POST['naam'] ?? '');
     $gekozen  = $_POST['platform'] ?? [];
@@ -125,7 +114,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
         $stmt->execute([$naam, $afbeelding, $platform, $genre ?: null, $releasedatum, $status, $rating ?: null, $notities ?: null, $aangeraden_door ?: null]);
 
-        unset($_SESSION['csrf_token']);
         header('Location: games.php');
         exit;
     }
@@ -152,7 +140,6 @@ require __DIR__ . '/includes/header.php';
 <?php endif; ?>
 
 <form method="post" enctype="multipart/form-data" class="formulier">
-    <input type="hidden" name="csrf_token" value="<?= e($_SESSION['csrf_token']) ?>">
 
     <div class="veld">
         <label for="naam">Naam *</label>

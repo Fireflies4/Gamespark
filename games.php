@@ -82,6 +82,20 @@ $games = $statement->fetchAll();
 // Is er minstens één filter gekozen?
 $filterActief = count($parameters) > 0;
 
+// Op "Verwijderen" geklikt? Dan staat er bijvoorbeeld games.php?verwijder=3 in de link.
+// We halen die game op, zodat we de popup kunnen tonen.
+$teVerwijderen = false;
+$verwijderId = $_GET['verwijder'] ?? null;
+
+if (is_numeric($verwijderId)) {
+    $query = "SELECT id, naam FROM games WHERE id = :id";
+    $statement = $pdo->prepare($query);
+    $statement->execute([
+        ":id" => $verwijderId
+    ]);
+    $teVerwijderen = $statement->fetch();
+}
+
 $paginaTitel = 'Games';
 $actief = 'games';
 require __DIR__ . '/includes/header.php';
@@ -201,12 +215,30 @@ require __DIR__ . '/includes/header.php';
                     <td>
                         <a class="btn btn-small" href="game-bekijken.php?id=<?= (int) $game['id'] ?>">Bekijken</a>
                         <a class="btn btn-small" href="game-bewerken.php?id=<?= (int) $game['id'] ?>">Bewerken</a>
-                        <a class="btn btn-small" href="game-verwijderen.php?id=<?= (int) $game['id'] ?>">Verwijderen</a>
+                        <a class="btn btn-small" href="games.php?verwijder=<?= (int) $game['id'] ?>">Verwijderen</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 <?php endif; ?>
+
+<?php if ($teVerwijderen) { ?>
+    <!-- Popup: weet je zeker dat je deze game wilt verwijderen? -->
+    <div class="popup-achtergrond">
+        <div class="popup">
+            <h2>Game verwijderen?</h2>
+            <p>Weet je zeker dat je <strong><?php echo htmlspecialchars($teVerwijderen['naam']); ?></strong> wilt verwijderen? Dit kan niet ongedaan worden gemaakt.</p>
+
+            <form action="<?php echo $base_url; ?>/app/Http/Controllers/gamesController.php" method="POST">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="id" value="<?php echo $teVerwijderen['id']; ?>">
+
+                <button type="submit" class="btn btn-primary">Verwijderen</button>
+                <a class="btn" href="games.php">Annuleren</a>
+            </form>
+        </div>
+    </div>
+<?php } ?>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>

@@ -1,10 +1,4 @@
 <?php
-session_start();
-
-// CSRF-token aanmaken (beveiliging van het formulier)
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
 
 $platformen = ['PC', 'PlayStation 5', 'PlayStation 4', 'Xbox Series X/S', 'Xbox One', 'Nintendo Switch', 'Nintendo Switch 2', 'Mobiel', 'Anders'];
 $statussen  = ['Wishlist', 'In bezit', 'Speelt nu', 'Uitgespeeld'];
@@ -66,7 +60,6 @@ if (is_numeric($id)) {
     <form action="<?php echo $base_url; ?>/app/Http/Controllers/gamesController.php" method="POST" enctype="multipart/form-data" class="formulier">
         <input type="hidden" name="action" value="edit">
         <input type="hidden" name="id" value="<?php echo $id; ?>">
-        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
         <div class="veld">
             <label for="naam">Naam *</label>

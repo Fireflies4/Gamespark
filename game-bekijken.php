@@ -73,7 +73,7 @@ require 'includes/header.php';
         <h1><?php echo htmlspecialchars($game['naam']); ?></h1>
         <div>
             <a class="btn" href="game-bewerken.php?id=<?php echo $game['id']; ?>">Bewerken</a>
-            <a class="btn" href="game-verwijderen.php?id=<?php echo $game['id']; ?>">Verwijderen</a>
+            <a class="btn" href="games.php?verwijder=<?php echo $game['id']; ?>">Verwijderen</a>
         </div>
     </div>
 
