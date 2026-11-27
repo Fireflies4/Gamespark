@@ -95,11 +95,24 @@ a {
     color: var(--tekst);
 }
 
+/* 3 kolommen: menu links, logo in het midden, account rechts */
 .header-inner {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
     min-height: 62px;
+}
+
+.header-inner nav {
+    justify-self: start;
+}
+
+.header-inner .brand {
+    justify-self: center;
+}
+
+.header-inner .account {
+    justify-self: end;
 }
 
 .brand {
@@ -133,11 +146,10 @@ a {
     color: var(--accent-tekst);
 }
 
-.site-header nav a.account {
+.site-header a.account {
+    display: block;
     width: 26px;
     height: 26px;
-    padding: 0;
-    margin-left: 6px;
     border-radius: 50%;
     background: var(--grijs);
 }
@@ -669,4 +681,19 @@ h2,
 .brand,
 .btn {
     font-family: 'Chakra Petch', Arial, sans-serif;
+}
+
+/* ---- Header op een smal scherm (telefoon) ---- */
+.site-header nav a {
+    white-space: nowrap;        /* "Over ons" blijft op één regel */
+}
+
+@media (max-width: 600px) {
+    .brand-naam {
+        display: none;          /* alleen het logo in het midden, zonder de tekst */
+    }
+
+    .site-header nav a {
+        padding: 6px 8px;
+    }
 }
